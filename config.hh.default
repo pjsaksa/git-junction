@@ -1,0 +1,47 @@
+/* git-junction
+ * Copyright (c) 2016-2017 by Pauli Saksa
+ *
+ * Licensed under The MIT License, see file LICENSE.txt in this source tree.
+ */
+
+#ifndef GIT_JUNCTION_CONFIG_HEADER
+#define GIT_JUNCTION_CONFIG_HEADER
+
+#include <string>
+#include <set>
+
+namespace config
+{
+    enum {
+        user_min_size            =3,
+        user_max_size            =12,
+        password_min_size        =0,
+        password_max_size        =64,
+        repository_name_min_size =4,
+        repository_name_max_size =64,
+        url_min_size             =4,
+        url_max_size             =200,
+        description_max_size     =80,
+        //
+        hashsum_result_size      =64,   // produced by hashsum_bin
+        hash_size                =32,   // truncated to this size
+        //
+        key_min_size             =1024,
+        key_max_size             =8192,
+        key_label_max_size       =30,
+    };
+
+    extern const std::string base_path;
+    extern const std::string clone_url_base;
+
+    extern const char *bash_bin;
+    extern const char *hashsum_bin;
+    extern const char *git_shell_bin;
+
+    extern const std::string keys_dir;
+    extern const std::set<int> key_data_sizes;
+
+    extern const std::string salt;
+}
+
+#endif

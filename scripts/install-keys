@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# This script is to be installed under user 'git' into some directory in PATH.
+# Sudo must be configured to allow user 'git-console' to run this script as
+# 'git' without password. The following command is run by git-console:
+#
+#     sudo -u git /home/git/bin/install-keys <user> <pid>
+
+U="$1"
+P="$2"
+
+SKP=~/git-junction-keys
+SSHP=~/.ssh
+
+if ! [ "$U" ]; then
+    echo "install_keys error: No user defined"
+    exit 1
+fi
+
+if ! [ "$P" ]; then
+    echo "install_keys error: No PID defined"
+    exit 1
+fi
+
+if ! [ -d "$SKP" ]; then
+    if ! mkdir --mode=0700 "$SKP"; then
+        echo "creating $SKP failed"
+        exit 1
+    fi
+fi
+
+if ! [ -d "$SSHP" ]; then
+    if ! mkdir --mode=0700 "$SSHP"; then
+        echo "creating $SSHP failed"
+        exit 1
+    fi
+fi
+
+###
+
+USER_TMP_FILE="$SKP"/user-tmp."$U"."$P"
+USER_FILE="$SKP"/user."$U"
+
+{   for W in "$SKP"/*.key
+    do
+        [ -f "$W"] || break
+
+        echo -n "environment=\"GJUSER=$U\" "
+        cat $W
+    done
+} > "$USER_TMP_FILE"
+
+mv "$USER_TMP_FILE" "$USER_FILE"
+
+AUTH_TMP_FILE="$SKP"/authorized_keys."$P"
+
+cat "$SKP"/user.* > "$AUTH_TMP_FILE"
+mv "$AUTH_TMP_FILE" "$SSHP"/authorized_keys
+
+#
+
+chmod 0600 "$SSHP"/authorized_keys

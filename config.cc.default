@@ -1,0 +1,26 @@
+/* git-junction
+ * Copyright (c) 2016-2017 by Pauli Saksa
+ *
+ * Licensed under The MIT License, see file LICENSE.txt in this source tree.
+ */
+
+#include "config.hh"
+
+
+#error DEFINE AND UNCOMMENT THESE, AND REMOVE THIS ERROR
+
+
+/*
+const std::string config::base_path      {"/absolute/path/to/your/git/junction"};
+const std::string config::clone_url_base {"git://yourhost.com/"};
+
+const char *config::bash_bin      {"/usr/bin/bash"};
+const char *config::hashsum_bin   {"/usr/bin/sha256sum"};
+const char *config::git_shell_bin {"/usr/bin/git-shell"};
+
+const std::string config::keys_dir         {"keys"};
+const std::set<int> config::key_data_sizes {204, 372, 716, 1396};    // 1024 to 8192 bits
+
+const std::string config::salt
+    {"any random string. changing this will invalidate all passwords"};
+*/

@@ -1,0 +1,31 @@
+This is a rough guide for how to install git-junction. This is just a scetch for
+now, and will be made more complete later on.
+
+1. Setup two user accounts:
+    1. named git and git-console
+    2. create home-directories and bin-directory for each, and make sure each
+       user's bin-directory is in that user's PATH
+    3. configure and compile git-junction, which should produce two executables:
+       junction-console and junction-shell
+    4. copy junction-console to /home/git-console/bin/, and junction-shell to
+       /home/git/bin/
+    5. set junction-console to be git-console's shell, and junction-shell to be
+       git's shell
+    6. clear the password of both user accounts
+
+2. Add the following lines to /etc/ssh/sshd_config:
+    Match User git-console
+        PermitEmptyPasswords yes
+        PermitOpen none
+        PermitTunnel no
+        PermitUserRC no
+        PrintLastLog no
+2.1. empty passwords should otherwise be disabled (as is the default) and public
+     key authentication should be enabled (as is the default)
+
+3. add the file '/etc/sudoers.d/git-console' with content:
+    git-console ALL=(git) NOPASSWD: ALL
+
+4. copy scripts/install-keys to /home/git/bin/
+
+5. user git must have access to key storage kept by git-console

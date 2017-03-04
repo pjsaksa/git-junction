@@ -1,0 +1,6 @@
+*.[ado]
+/config.hh
+/config.cc
+
+/junction-console
+/junction-shell
